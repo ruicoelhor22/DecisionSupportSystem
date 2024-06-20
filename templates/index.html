@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Suport System - Renting a Car</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            padding: 20px;
+            display: flex;
+            /* Use flexbox to align items horizontally */
+            background-image: url('../templates/imagem.jpg');
+            /* Corrected path to the background image */
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            /* Box shadow for a subtle effect */
+        }
+
+
+        .container {
+            position: relative;
+            /* Ensure relative positioning for child elements */
+            z-index: 1;
+            /* Ensure content appears above shadow */
+        }
+
+        .form-container {
+            flex: 1;
+            /* Allow the form container to grow and fill available space */
+            max-width: 600px;
+            margin-right: 20px;
+            /* Add some spacing between the form and the result */
+            background-color: #fff;
+            /* White background for form container */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            /* Box shadow for form container */
+        }
+
+        .result-container {
+            flex: 1;
+            /* Allow the result container to grow and fill available space */
+            background-color: #fff;
+            /* White background for result container */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            /* Box shadow for result container */
+        }
+
+        h2 {
+            color: #333;
+            /* Darker text for headings */
+        }
+
+        pre {
+            white-space: pre-wrap;
+            /* Preserve whitespace and line breaks */
+            overflow-x: auto;
+            /* Enable horizontal scrolling if needed */
+        }
+    </style>
+
+
+</head>
+
+<body background="C:/Users/Utilizador/Desktop/SSD/templates/imagem.jpg">
+    <div class="container">
+        <h1 class="text-center mb-4">Decision Rules Form</h1>
+        <div class="row">
+            <!-- Form Container -->
+            <div class="col-md-6 form-container">
+                <form id="decision-form" method="post" action="/solve" class="needs-validation" novalidate>
+                    <div class="form-group">
+                        <label for="Combustivel">Combustível</label>
+                        <select class="form-control" name="Combustivel" id="Combustivel" required>
+                            <option value="">Escolha...</option>
+                            <option value="Gasolina">Gasolina</option>
+                            <option value="Gasóleo">Gasóleo</option>
+                            <option value="Elétrico">Elétrico</option>
+                            <option value="Hibrido">Hibrido</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor, escolha um combustível.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Lotacao">Lotação</label>
+                        <select class="form-control" name="Lotacao" id="Lotacao" required>
+                            <option value="">Escolha...</option>
+                            <option value="2">2</option>
+                            <option value="5">5</option>
+                            <option value="7">7</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor, escolha uma lotação.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CaixaDeMudancas">Caixa de Mudanças</label>
+                        <select class="form-control" name="Caixa de mudanças" id="CaixaDeMudancas" required>
+                            <option value="">Escolha...</option>
+                            <option value="Automática">Automática</option>
+                            <option value="Manual">Manual</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor, escolha uma caixa de mudanças.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="TipoDeSeguro">Tipo de Seguro</label>
+                        <select class="form-control" name="Tipo de seguro" id="TipoDeSeguro" required>
+                            <option value="">Escolha...</option>
+                            <option value="Contra todos os Riscos">Contra todos os riscos</option>
+                            <option value="Danos Próprios">Danos Próprios</option>
+                            <option value="Danos Terceiros">Danos Terceiros</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor, escolha um tipo de seguro.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Duracao">Duração (dias)</label>
+                        <input type="number" class="form-control" name="Duração" id="Duracao" min="1" required>
+                        <div class="invalid-feedback">Por favor, insira a duração.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Manutencao">Manutenção</label>
+                        <select class="form-control" name="Manutenção" id="Manutencao" required>
+                            <option value="">Escolha...</option>
+                            <option value="Cargo do utilizador">Cargo do utilizador</option>
+                            <option value="Cargo da empresa">Cargo da empresa</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor, escolha uma opção de manutenção.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Consumo">Consumo</label>
+                        <select class="form-control" name="Consumo " id="Consumo" required>
+                            <option value="">Escolha...</option>
+                            <option value="Alto">Alto</option>
+                            <option value="Médio">Médio</option>
+                            <option value="Baixo">Baixo</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor, escolha uma opção de consumo.</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                </form>
+            </div>
+            <!-- Result Container -->
+            <div class="col-md-6 result-container">
+                <h2>Result</h2>
+                <pre id="result"></pre>
+                <div id="image-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#decision-form').on('submit', function (event) {
+                event.preventDefault();
+                if (this.checkValidity() === false) {
+                    event.stopPropagation();
+                } else {
+                    $.ajax({
+                        url: '/solve',
+                        type: 'POST',
+                        data: $(this).serialize(),
+                        success: function (response) {
+                            var resultText = '<br><h3>Modelo: ' + response.Modelo + '</h3><br>' +
+                                '<h3>Preço Diario: ' + response['Preço Diario'] + ' €.</h3><br>' +
+                                '<h3>Preço Final: ' + response['Preço Final'] + ' €.</h3><br>';
+                            $('#result').html(resultText);
+
+                            // Call the function to search and display the image
+                            searchAndDisplayImage(response.Modelo + ' car');
+                        }
+                    });
+                }
+                this.classList.add('was-validated');
+            });
+        });
+
+        function searchAndDisplayImage(query) {
+            const apiKey = '{{ keys.API_KEY }}'; // Your actual Google Custom Search JSON API key
+            const cx = '{{ keys.CX }}'; // Your Custom Search Engine ID
+            const url = `https://www.googleapis.com/customsearch/v1?q=${query}&cx=${cx}&key=${apiKey}&searchType=image&num=1`;
+
+            $.get(url, function (data) {
+                console.log(data); // Log the response to inspect it
+                if (data.items && data.items.length > 0) {
+                    const imageUrl = data.items[0].link;
+                    const imageElement = `<img src="${imageUrl}" alt="${query}" style="max-width: 100%;">`;
+                    $('#image-result').html(imageElement);
+                } else {
+                    $('#image-result').html('<p>No image found.</p>');
+                }
+            })
+        }
+
+    </script>
+
+
+</body>
+
+</html>
